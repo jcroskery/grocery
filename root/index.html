@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+        <link rel="stylesheet" href="main.css">
+    </head>
+<body>
+<div id="body">
+    <div id="title">
+        <span id="title-span">GrocerBuddy</span>
+        <img src="images/shoppingcart.png" width="50">
+    </div>
+    <div id="list">
+            <span id="item-header">Item</span>
+            <span id="amount-header">Amount</span>
+            <span id="price-header">Lowest Price (est.)</span>
+            <span id="delete-header">Delete</span>
+            
+            <button id="check-out">
+                <span id="check-out-span">Check Out</span>
+                <img src="images/shoppingbasket.png" id="basket" width="50"/>
+            </button>
+            <div id="check-out-total">
+                <span id="lowest-estimated-total">Estimated Total:</span><br>
+                <span id="total-price">$0.00</span>
+            </div>
+        
+    </div>
+    <div id="search-div">
+
+            <span id="search-item-header">Item</span>
+            <span id="search-quantity-header">Quantity</span>
+            <span id="search-submit-header">Add/Edit</span>
+
+            <input id="search" type="search" placeholder="Cheese..." name="name">
+            <div id="amount-div">
+                <input id="amount" type="number" placeholder="4" name="number">
+                <span id="multiplier">x 100 g/ml</span>
+            </div>
+            <button id="add-row">
+                <img id="shoppingcart" src="images/shoppingcart.png" width="20"/>
+            </button>
+
+    </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
