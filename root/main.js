@@ -12,15 +12,13 @@ function getXHR(name, post) {
   
 // generateId :: Integer -> String
 function generateId (len) {
-    var arr = new Uint8Array((len || 40) / 2)
-    window.crypto.getRandomValues(arr)
-    return Array.from(arr, dec2hex).join('')
+    return Math.floor(Math.random() * 4000000);
 }
 
 AppData = {
     sessid: '',
     rows: [],
-    url: '159.203.183.114',
+    url: '159.203.6.121',
     port: '5000',
 };
 
@@ -29,31 +27,47 @@ AppData = {
 if (document.cookie != '') {
     //Call backend api to get stuff
     let requestData = {
-        sessid: document.cookie
+        session_id: document.cookie
     }
     let xhr = getXHR('order', JSON.stringify(requestData))
     xhr.onload = () => {
         //Update rows
         let json = JSON.parse(xhr.response);
+        console.log(json)
         let idx = 0;
         for (row in json.order) {
-            add_row(row.name, row.number, ' ' + row.units, row.estimated_cost, idx++)
+            add_row(json.order[row].name, json.order[row].number * 100, ' ' + json.order[row].units, '$' + json.order[row].estimated_cost.toFixed(2), idx++)
         }
+        update_estimated_total();
     }
     
 } else {
     document.cookie = generateId(64)
 }
-sessid = document.cookie
+AppData.sessid = document.cookie
+
+function update_estimated_total() {
+    total_money = 0
+    for (row in AppData.rows) {
+        total_money += string_to_price(AppData.rows[row][4].innerText)
+        
+        console.log(string_to_price(AppData.rows[row][4].innerText))
+    }
+    document.getElementById("total-price").innerText = price_to_string(total_money)
+}
 
 function handle_returned_data(data, idx) {
     let row = AppData.rows[idx];
     let json = JSON.parse(data);
     row[3].innerText = ' ' + json.unit;
-    row[5].innerText = price_to_string(json.estimated_price);
+    row[4].innerText = price_to_string(json.estimated_price);
+    update_estimated_total()
 }
 function price_to_string(price) {
-    return "$" + price
+    return "$" + price.toFixed(2)
+}
+function string_to_price(string) {
+    return +(string.split('$')[1])
 }
 
 function add_row(name, number, unit, estimated_cost, idx) {
@@ -75,15 +89,14 @@ function add_row(name, number, unit, estimated_cost, idx) {
     cost_span.classList = 'cost ' + idx;
     cost_span.innerText = estimated_cost;
     quantity_span.addEventListener('blur', () => {
+        returned_value = Math.ceil(quantity_span.value / 100)
+        quantity_span.value = returned_value * 100
         let requestData = {
-            sessid: AppData.sessid,
-            quantity: quantity_span.value,
+            session_id: AppData.sessid,
+            quantity: returned_value,
             name: item_name_span.innerText
         }
         let xhr = getXHR('edit', JSON.stringify(requestData))
-        xhr.onload = () => {
-            handle_returned_data(xhr.response, idx);
-        }
         // Edit request
     });
     let delete_button = document.createElement('button');
@@ -92,7 +105,7 @@ function add_row(name, number, unit, estimated_cost, idx) {
     delete_button.addEventListener('click', () => {
         let requestData = {
             name: item_name_span.innerText,
-            sessid: AppData.sessid
+            session_id: AppData.sessid
         }
         getXHR('delete', JSON.stringify(requestData))
         // Make delete request
@@ -100,6 +113,8 @@ function add_row(name, number, unit, estimated_cost, idx) {
         document.getElementById("list").removeChild(unit_div);
         document.getElementById("list").removeChild(cost_span);
         document.getElementById("list").removeChild(delete_button);
+        AppData.rows.splice(idx, 1)
+        update_estimated_total()
     });
     row = [item_name_span, unit_div, quantity_span, unit_span, cost_span, delete_button]
         document.getElementById("list").insertBefore(item_name_span, document.getElementById("check-out"));
@@ -115,13 +130,13 @@ document.getElementById("add-row").addEventListener('click', () => {
     let requestData = {
         name: search,
         number: amount,
-        sessid: sessid
+        session_id: AppData.sessid
     }
     let xhr = getXHR('addorder', JSON.stringify(requestData))
     xhr.onload = () => {
-        handle_returned_data(xhr.response, AppData.rows.length + 1);
+        handle_returned_data(xhr.response, AppData.rows.length - 1);
     }
-    add_row(search, amount * 100, ' g', '$0.00', AppData.rows.length + 1)
+    add_row(search, amount * 100, ' g', 'Calculating...', AppData.rows.length)
 })
 
 document.getElementById("check-out").addEventListener('click', () => {
