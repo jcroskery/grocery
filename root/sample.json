@@ -1,0 +1,35 @@
+{
+    "shopping_list": { 
+        "winner": 0,
+        "zero": [
+            {
+                "name": "Cheddar Cheese",
+                "price": 6.56
+            },
+            {
+                "name": "Eggs",
+                "price": 2.28
+            }
+        ],
+        "one": [
+            {
+                "name": "Swiss Cheese",
+                "price": 5.84
+            },
+            {
+                "name": "Eggs",
+                "price": 4.28
+            }
+        ],
+        "two": [
+            {
+                "name": "Gouda Cheese",
+                "price": 10.84
+            },
+            {
+                "name": "Discount Eggs",
+                "price": 1.28
+            }
+        ]
+    }
+}

@@ -2,8 +2,10 @@
     display: flex;
     flex-direction: column;
     width: 100vw;
+    height: 100vh;
     justify-content: space-around;
     align-items: center;
+    background-color: rgb(241, 241, 241);
 }
 #title {
     display: flex;
@@ -21,6 +23,7 @@
     margin-left: 5vw;
     margin-right: 5vw;
     border: 2px solid darkblue;
+    background-color: lightgray;
     border-radius: 5px;
     justify-items: center;
     width: 90vw;
@@ -69,15 +72,6 @@
     align-items: center;
     text-align: center;
 }
-.item-name #item-header #search-item-header #search {
-    grid-column: 1;
-}
-.unit-div #amount-header #search-quantity-header #amount-div {
-    grid-column: 2;
-}
-.cost #price-header #check-out-total #search-submit-header #add-row {
-    grid-column: 3;
-}
 .delete-button #delete-header {
     grid-column: 4;
 }
@@ -86,8 +80,24 @@
     font-size: 40px;
     font-weight: bold;
 }
-.item-name .unit-div .quantity .unit .cost {
-    width: 100%;
-    height: 100%;
-    cursor: pointer !important;
+#item-header, #amount-header, #price-header, #delete-header {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#search-item-header, #search-quantity-header, #search-submit-header {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.item-name, .unit-div, .quantity, .unit, .cost {
+    font-size: 17px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.item-name {
+    font-size: 19px;
+    font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+#add-row {
+    width: 40px;
 }
