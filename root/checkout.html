@@ -4,21 +4,23 @@
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
         <link rel="stylesheet" href="cart.css">
         <title>GrocerBuddy Checkout</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     </head>
 <body id="body-real">
 <div id="body">
     <div id="0">
-        <img src="images/nofrills.png" width="200px"><br>
-        <span>Price: </span><span class='price-span' id="nofrills-price">Calculating...</span>
+        <img class="logo" src="images/nofrills.png" width="200px">
+        <span class="labelspan">Price: </span><span class='price-span' id="nofrills-price">Calculating...</span>
     </div>
     <div id="1">
-        <img src="images/loblaws.png" width="200px"><br>
-        <span>Price: </span><span class='price-span' id="loblaws-price">Calculating...</span>
+        <img class="logo" src="images/loblaws.png" width="200px">
+        <span class="labelspan">Price: </span><span class='price-span' id="loblaws-price">Calculating...</span>
     </div>
     <div id="2">
-        <img src="images/metro.png" width="200px"><br>
-        <span>Price: </span><span class='price-span' id="metro-price">Calculating...</span>
+        <img class="logo" src="images/metro.png" width="200px">
+        <span class="labelspan">Price: </span><span class='price-span' id="metro-price">Calculating...</span>
     </div>
+    <div id="loading"></div>
 </div>
 
 <script src="cart.js"></script>

@@ -123,7 +123,7 @@ function add_row(name, number, unit, estimated_cost, idx) {
         document.getElementById("list").insertBefore(delete_button, document.getElementById("check-out"));
     AppData.rows.push(row);
 }
-
+xhr = []
 document.getElementById("add-row").addEventListener('click', () => {
     let search = document.getElementById("search").value;
     let amount = document.getElementById("amount").value;
@@ -132,9 +132,11 @@ document.getElementById("add-row").addEventListener('click', () => {
         number: amount,
         session_id: AppData.sessid
     }
-    let xhr = getXHR('addorder', JSON.stringify(requestData))
-    xhr.onload = () => {
-        handle_returned_data(xhr.response, AppData.rows.length - 1);
+    xhr.push(getXHR('addorder', JSON.stringify(requestData)))
+    xhr_thing = xhr[xhr.length - 1];
+    xhr_thing.onload = () => {
+        console.log("loaded")
+        handle_returned_data(xhr_thing.response, AppData.rows.length - 1);
     }
     add_row(search, amount * 100, ' g', 'Calculating...', AppData.rows.length)
 })
